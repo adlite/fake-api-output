@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import routes from '../../routes';
 import NotFound from '../../pages/NotFound';
 // Styles
-import './style.styl';
+import style from './style.styl';
 
 const App = () => (
-  <div className="App">
+  <div className={style.App}>
     <Router>
       <Switch>
         {routes.map((route, index) => <Route {...route} key={index} />)}
