@@ -5,15 +5,17 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import routes from '../../routes';
 import NotFound from '../../pages/NotFound';
 // Styles
-import './style.css';
+import './style.styl';
 
 const App = () => (
-  <Router>
-    <Switch>
-      {routes.map((route, index) => <Route {...route} key={index} />)}
-      <Route component={NotFound} />
-    </Switch>
-  </Router>
+  <div className="App">
+    <Router>
+      <Switch>
+        {routes.map((route, index) => <Route {...route} key={index} />)}
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  </div>
 );
 
 export default App;
