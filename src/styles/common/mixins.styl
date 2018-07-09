@@ -1,0 +1,79 @@
+// placeholder color
+placeholder($color) {
+  &::placeholder {
+    color: $color
+    opacity: 1
+  }
+}
+
+// font smoothing
+smoothFont() {
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+}
+
+// fullsize
+fullsize() {
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+}
+
+// font-face
+webfont($family, $name, $weight = normal, $style = normal) {
+  @font-face {
+    font-family: $family
+    src: url('../assets/fonts/' + $name + '/' + $name + '.eot');
+    src: url('../assets/fonts/' + $name + '/' + $name + '.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/' + $name + '/' + $name + '.woff') format('woff'),
+         url('../assets/fonts/' + $name + '/' + $name + '.ttf') format('truetype')
+    font-weight: $weight
+    font-style: $style
+  }
+}
+
+// cursor grab
+cursorGrab() {
+  cursor: move
+  cursor: grab
+}
+
+// cursor grabbing
+cursorGrabbing() {
+  cursor: move
+  cursor: grabbing
+}
+
+triangleLinkBottom() {
+  width: 0
+  height: 0
+  border-style: solid
+  border-width: 4px 4px 0 4px
+  border-color: currentColor transparent transparent transparent
+}
+
+textOverflow() {
+  overflow hidden
+  white-space nowrap
+  text-overflow ellipsis
+}
+
+buttonOutline($color) {
+  color: $color
+  background-color: transparent
+  box-shadow: inset 0 0 0 2px $color
+}
+
+bg($position = 50% 50%) {
+  background-position: $position
+  background-repeat: no-repeat
+  background-size: cover
+}
+
+imgResponsive() {
+  display: block
+  max-width: 100%
+  height: auto
+}
