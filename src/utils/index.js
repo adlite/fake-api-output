@@ -1,3 +1,5 @@
+import random from 'random-int';
+
 /**
  * Concatenate absolute and relative link to one string
  * @param parentLink
@@ -22,6 +24,9 @@ export const callFunc = (func, ...params) => {
   if (typeof func === 'function') {
     return func(...params);
   }
-
   return null;
+};
+
+export const getRandomPicsumImage = (minId = 0, maxId = 20) => {
+  return `https://picsum.photos/640/480?image=${random(minId, maxId)}`;
 };

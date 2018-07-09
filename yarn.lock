@@ -6034,6 +6034,10 @@ rafl@~1.2.1:
   dependencies:
     global "~4.3.0"
 
+random-int@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/random-int/-/random-int-1.0.0.tgz#e6a2ed3448ac9c6646a0657443b1c1521592ed08"
+
 randomatic@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.0.0.tgz#d35490030eb4f7578de292ce6dfb04a91a128923"
