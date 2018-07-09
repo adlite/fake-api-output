@@ -2,9 +2,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 // Components
 import Layout from '../../components/Layout';
 import Fetcher from '../../components/Fetcher';
+import PostsList from '../../components/PostsList';
 // Actions
 import * as actions from '../../store/modules/posts';
 
@@ -25,7 +28,7 @@ class Home extends PureComponent {
     return (
       <Layout title="Home">
         <Fetcher isLoading={posts.isFetching}>
-          {posts.data.map(post => <p key={post.id}>{post.body}</p>)}
+          <PostsList data={posts.data} />
         </Fetcher>
       </Layout>
     );
