@@ -1,0 +1,24 @@
+.PostOutput {
+  & {
+  }
+
+  & &__title {
+    &::first-letter {
+      text-transform: uppercase
+    }
+  }
+
+  & &__body {
+    margin-bottom: 14px
+
+    &::first-letter {
+      text-transform: uppercase
+    }
+  }
+
+  &__preview {
+    imgResponsive()
+    margin-bottom: 40px
+    border-radius: 5px
+  }
+}

@@ -16,7 +16,7 @@ class ${TM:COMPONENT_NAME} extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.dispatch(actions.postsFetch());
+    this.props.dispatch(actions.${TM:DUCK_NAME}Fetch());
   }
 
   render() {

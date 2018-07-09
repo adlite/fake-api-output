@@ -10,7 +10,6 @@ export const concatLinks = (parentLink, relativeLink) => {
   if (parentLink.slice(-1) === '/') {
     return parentLink + relativeLink;
   }
-
   return `${parentLink}/${relativeLink}`;
 };
 
@@ -31,15 +30,17 @@ export const getRandomPicsumImage = (id, width = 640, height = 480) => {
   return `https://picsum.photos/${width}/${height}?image=${id}`;
 };
 
+export const bindRandomImageToPost = post => {
+  const imageId = random(0, 20);
+  return {
+    ...post,
+    preview: getRandomPicsumImage(imageId, 1920, 1080),
+    thumb: getRandomPicsumImage(imageId, 640, 480),
+  };
+};
+
 export const bindRandomImageToPosts = posts => {
-  return posts.map(post => {
-    const imageId = random(0, 20);
-    return {
-      ...post,
-      preview: getRandomPicsumImage(imageId, 1920, 1080),
-      thumb: getRandomPicsumImage(imageId, 640, 480),
-    };
-  });
+  return posts.map(post => bindRandomImageToPost(post));
 };
 
 export const getDocumentHeight = () => {

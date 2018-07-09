@@ -24,7 +24,7 @@ class Home extends PureComponent {
     const { posts, dispatch } = this.props;
 
     return (
-      <Layout title="Home">
+      <Layout title="Home" gutterBottom={!posts.nextPage.hasMore}>
         <Fetcher isLoading={posts.isFetching} error={posts.error}>
           <PostsList posts={posts} dispatch={dispatch} />
         </Fetcher>
