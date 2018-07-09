@@ -31,8 +31,10 @@ export default class PostsList extends PureComponent {
     if (this.fetcherElement) {
       const fetcherCoords = this.fetcherElement.getBoundingClientRect();
       const { nextPage } = this.props.posts;
-      if (fetcherCoords.top < window.innerHeight && !nextPage.isFetching && nextPage.hasMore) {
-        this.loadMorePosts(nextPage.page + 1);
+      if (fetcherCoords.top < window.innerHeight) {
+        if (!nextPage.isFetching && nextPage.hasMore && !nextPage.error) {
+          this.loadMorePosts(nextPage.page + 1);
+        }
       }
     }
   };
@@ -69,7 +71,9 @@ export default class PostsList extends PureComponent {
         ) : (
           <Typography align="center">There are no posts</Typography>
         )}
-        {posts.nextPage.hasMore && <Fetcher innerRef={this.bindFetcherRef} isLoading />}
+        {posts.nextPage.hasMore && (
+          <Fetcher innerRef={this.bindFetcherRef} error={posts.nextPage.error} isLoading />
+        )}
       </div>
     );
   }

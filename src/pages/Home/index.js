@@ -25,7 +25,7 @@ class Home extends PureComponent {
 
     return (
       <Layout title="Home">
-        <Fetcher isLoading={posts.isFetching}>
+        <Fetcher isLoading={posts.isFetching} error={posts.error}>
           <PostsList posts={posts} dispatch={dispatch} />
         </Fetcher>
       </Layout>
