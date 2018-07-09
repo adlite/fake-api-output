@@ -3,12 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+// Icons
+import SearchIcon from '@material-ui/icons/Search';
+import RefreshIcon from '@material-ui/icons/Refresh';
 // Components
 import Container from '../Container';
 // Styles
@@ -24,15 +27,22 @@ const Layout = ({ children, title, gutterBottom }) => {
     <div className={classes}>
       <Helmet title={`Fake API Output App | ${title}`} />
       <AppBar position="fixed">
-        <Toolbar>
-          <IconButton className={style.Layout__burger} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit" className={style.Layout__title}>
-            Fake API Output App
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
+        <Container>
+          <Toolbar disableGutters>
+            <IconButton className={style.Layout__burger} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={style.Layout__title}>
+              <Link to="/">Fake API Output App</Link>
+            </Typography>
+            <IconButton color="inherit">
+              <RefreshIcon />
+            </IconButton>
+            <IconButton color="inherit">
+              <SearchIcon />
+            </IconButton>
+          </Toolbar>
+        </Container>
       </AppBar>
       <main className={style.Layout__main}>
         <Container>{children}</Container>
