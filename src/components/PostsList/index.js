@@ -1,28 +1,76 @@
 // Vendor
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+// Actions
+import * as actions from '../../store/modules/posts';
 // Components
 import Post from '../Post';
+import Fetcher from '../Fetcher';
 
-const PostsList = ({ className, data }) => (
-  <Grid container spacing={24} className={cn(className)}>
-    {data.map(post => (
-      <Grid item xs={12} sm={6} key={post.id}>
-        <Post data={post} />
+export default class PostsList extends PureComponent {
+  static propTypes = {
+    posts: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
+  fetcherElement = null;
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    // TODO: remove console.log()
+    console.log('PostsList will unmount');
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (this.fetcherElement) {
+      const fetcherCoords = this.fetcherElement.getBoundingClientRect();
+      const { nextPage } = this.props.posts;
+      if (fetcherCoords.top < window.innerHeight && !nextPage.isFetching && nextPage.hasMore) {
+        this.loadMorePosts(nextPage.page + 1);
+      }
+    }
+  };
+
+  bindFetcherRef = element => {
+    if (element) {
+      this.fetcherElement = element;
+    }
+  };
+
+  loadMorePosts = page => {
+    this.props.dispatch(actions.postsFetchNext(page));
+  };
+
+  renderPosts() {
+    return (
+      <Grid container spacing={24}>
+        {this.props.posts.data.map(post => (
+          <Grid item xs={12} sm={6} key={post.id}>
+            <Post data={post} />
+          </Grid>
+        ))}
       </Grid>
-    ))}
-  </Grid>
-);
+    );
+  }
 
-PostsList.defaultProps = {
-  className: '',
-};
+  render() {
+    const { posts } = this.props;
 
-PostsList.propTypes = {
-  className: PropTypes.string,
-  data: PropTypes.array.isRequired,
-};
-
-export default PostsList;
+    return (
+      <div>
+        {posts.data.length > 0 ? (
+          this.renderPosts()
+        ) : (
+          <Typography align="center">There are no posts</Typography>
+        )}
+        {posts.nextPage.hasMore && <Fetcher innerRef={this.bindFetcherRef} isLoading />}
+      </div>
+    );
+  }
+}

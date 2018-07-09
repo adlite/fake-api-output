@@ -8,7 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Styles
 import style from './style.styl';
 
-const Fetcher = ({ className, children, isLoading }) => {
+// TODO: add error handling
+const Fetcher = ({ className, children, isLoading, innerRef }) => {
   const classes = cn({
     [style.Fetcher]: true,
     [style.Fetcher_loading]: isLoading,
@@ -16,7 +17,7 @@ const Fetcher = ({ className, children, isLoading }) => {
   });
 
   return (
-    <div className={classes}>
+    <div className={classes} ref={innerRef}>
       {isLoading ? <CircularProgress className={style.Fetcher__spinner} size={45} /> : children}
     </div>
   );
@@ -24,12 +25,15 @@ const Fetcher = ({ className, children, isLoading }) => {
 
 Fetcher.defaultProps = {
   className: '',
+  children: null,
+  innerRef: () => null,
 };
 
 Fetcher.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   isLoading: PropTypes.bool.isRequired,
+  innerRef: PropTypes.func,
 };
 
 export default Fetcher;

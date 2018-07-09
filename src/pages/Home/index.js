@@ -21,12 +21,12 @@ class Home extends PureComponent {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, dispatch } = this.props;
 
     return (
       <Layout title="Home">
         <Fetcher isLoading={posts.isFetching}>
-          <PostsList data={posts.data} />
+          <PostsList posts={posts} dispatch={dispatch} />
         </Fetcher>
       </Layout>
     );
