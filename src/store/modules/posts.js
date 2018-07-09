@@ -1,3 +1,6 @@
+// Imports
+import Api from '../../utils/api';
+
 // Action types
 export const FETCH = '@posts/FETCH';
 export const FETCH_OK = '@posts/FETCH_OK';
@@ -21,7 +24,15 @@ const postsFetchErr = err => ({
 export const postsFetch = () => dispatch => {
   dispatch(postsFetchStart());
 
-  return fetch('http://jsonplaceholder.typicode.com/posts');
+  return Api.get({
+    url: '/posts',
+    onResponse: res => {
+      dispatch(postsFetchOk(res));
+    },
+    onReject: err => {
+      dispatch(postsFetchErr(err));
+    },
+  });
 };
 
 // Reducer
