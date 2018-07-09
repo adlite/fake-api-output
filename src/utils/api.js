@@ -3,6 +3,21 @@ import query from 'query-string';
 import { concatLinks } from './';
 
 /**
+ * Get error message received from server
+ * @param error {string | object} - error object or string
+ * @return {string} - error message string
+ */
+export const getErrorMessage = error => {
+  if (typeof error === 'string') {
+    return error;
+  }
+  if (typeof error === 'object' && typeof error.message === 'string') {
+    return error.message;
+  }
+  return 'Unknown server error';
+};
+
+/**
  * A wrapper around the Jsonplaceholder API for convenient requests
  */
 export class ApiClass {
@@ -35,7 +50,7 @@ export class ApiClass {
     return fetch(url, options.fetchOptions)
       .then(responseMiddleware)
       .then(options.onResponse)
-      .catch(options.onReject);
+      .catch(err => options.onReject(getErrorMessage(err)));
   }
 
   /**
