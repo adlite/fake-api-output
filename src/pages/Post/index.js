@@ -25,7 +25,7 @@ class Post extends PureComponent {
     const { post } = this.props;
 
     return (
-      <Layout title="Post" gutterBottom>
+      <Layout title={post.data.title || post.error} gutterBottom>
         <Fetcher isLoading={post.isFetching} error={post.error}>
           <PostOutput data={post.data} />
         </Fetcher>

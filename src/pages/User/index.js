@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // Components
 import Layout from '../../components/Layout';
 import Fetcher from '../../components/Fetcher';
+import UserOutput from '../../components/UserOutput';
 // Actions
 import * as actions from '../../store/modules/user';
 
@@ -24,9 +25,9 @@ class User extends PureComponent {
     const { user } = this.props;
 
     return (
-      <Layout title="User">
+      <Layout title={user.data.name || user.error} gutterBottom>
         <Fetcher isLoading={user.isFetching} error={user.error}>
-          User page
+          <UserOutput data={user.data} />
         </Fetcher>
       </Layout>
     );
