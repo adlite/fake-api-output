@@ -2,8 +2,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 // Components
 import Layout from '../../components/Layout';
 import Fetcher from '../../components/Fetcher';
