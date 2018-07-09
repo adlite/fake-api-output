@@ -1,53 +1,48 @@
 // Utils
 import Api from '../../utils/api';
-import { bindRandomImageToPost } from '../../utils';
 
 // Action names
-export const FETCH = '@post/FETCH';
-export const FETCH_OK = '@post/FETCH_OK';
-export const FETCH_ERR = '@post/FETCH_ERR';
+export const FETCH = '@user/FETCH';
+export const FETCH_OK = '@user/FETCH_OK';
+export const FETCH_ERR = '@user/FETCH_ERR';
 
 // Action creators
-const postFetchStart = () => {
+const userFetchStart = () => {
   return { type: FETCH };
 };
 
-const postFetchOk = data => ({
+const userFetchOk = data => ({
   type: FETCH_OK,
   payload: data,
 });
 
-const postFetchErr = err => ({
+const userFetchErr = err => ({
   type: FETCH_ERR,
   error: err,
 });
 
-export const postFetch = id => dispatch => {
-  dispatch(postFetchStart());
+export const userFetch = id => (dispatch, getState) => {
+  dispatch(userFetchStart());
 
   return Api.get({
-    url: `/posts/${id}`,
-    data: {
-      _expand: 'user',
-    },
+    url: `/users/${id}`,
     onResponse: res => {
-      // TODO: handle 404
-      dispatch(postFetchOk(bindRandomImageToPost(res)));
+      dispatch(userFetchOk(res));
     },
     onReject: err => {
-      dispatch(postFetchErr(err));
+      dispatch(userFetchErr(err));
     },
   });
 };
 
 // Reducer
 const initialState = {
-  data: [],
+  data: {},
   isFetching: false,
   error: null,
 };
 
-export default function postReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH:
       return {
