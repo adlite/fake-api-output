@@ -30,16 +30,3 @@ export const callFunc = (func, ...params) => {
 export const getRandomPicsumImage = (minId = 0, maxId = 20) => {
   return `https://picsum.photos/640/480?image=${random(minId, maxId)}`;
 };
-
-export const getDocumentHeight = () => {
-  const body = document.body;
-  const html = document.documentElement;
-
-  return Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight,
-  );
-};
