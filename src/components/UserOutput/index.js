@@ -34,7 +34,7 @@ const UserOutput = ({ className, data }) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={5}>
           <Card className={style.UserOutput__card}>
             <CardContent>
               <Typography variant="display2" component="h1" gutterBottom>
@@ -44,7 +44,7 @@ const UserOutput = ({ className, data }) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={4}>
           <Card className={style.UserOutput__card}>
             <List>
               <a href={`tel:${data.email}`}>
