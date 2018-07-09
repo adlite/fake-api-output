@@ -1,6 +1,7 @@
 // Vendor
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,9 +13,10 @@ import Container from '../Container';
 // Styles
 import style from './style.styl';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, title }) => {
   return (
     <div className={style.Layout}>
+      <Helmet title={`Fake API Output App | ${title}`} />
       <AppBar position="fixed">
         <Toolbar>
           <IconButton className={style.Layout__burger} color="inherit" aria-label="Menu">
@@ -35,6 +37,7 @@ const Layout = ({ children }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default Layout;
