@@ -8,8 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-// Utils
-import { getRandomPicsumImage } from '../../utils';
 // Components
 import Button from '../Button';
 // Styles
@@ -21,7 +19,7 @@ const Post = ({ className, data }) => (
       <Link to={`/post/${data.id}`}>
         <CardMedia
           className={style.Post__media}
-          image={getRandomPicsumImage()}
+          image={data.thumb}
           title={`${data.title} post image`}
         />
       </Link>
