@@ -1,6 +1,7 @@
 // Utils
+import _get from 'lodash.get';
 import Api from '../../utils/api';
-import { bindRandomImageToPost } from '../../utils';
+import { bindRandomImageToPost, getCachedStore } from '../../utils';
 
 // Action names
 export const FETCH = '@post/FETCH';
@@ -14,7 +15,7 @@ const postFetchStart = () => {
 
 const postFetchOk = data => ({
   type: FETCH_OK,
-  payload: data,
+  payload: bindRandomImageToPost(data),
 });
 
 const postFetchErr = err => ({
@@ -31,13 +32,21 @@ export const postFetch = id => dispatch => {
       _expand: 'user',
     },
     onResponse: res => {
-      // TODO: handle 404
-      dispatch(postFetchOk(bindRandomImageToPost(res)));
+      dispatch(postFetchOk(res));
     },
     onReject: err => {
       dispatch(postFetchErr(err));
     },
   });
+};
+
+export const postFetchIfNeeded = id => dispatch => {
+  const cachedStore = getCachedStore();
+  if (Number(_get(cachedStore, 'state.post.data.id', null)) === Number(id)) {
+    dispatch(postFetchOk(cachedStore.state.post.data));
+  } else {
+    dispatch(postFetch(id));
+  }
 };
 
 // Reducer

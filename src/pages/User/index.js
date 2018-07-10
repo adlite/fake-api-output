@@ -17,10 +17,11 @@ class User extends PureComponent {
   };
 
   componentDidMount() {
-    this.fetchUser();
+    const { id } = this.props.match.params;
+    this.props.dispatch(actions.userFetchIfNeeded(id));
   }
 
-  fetchUser = () => {
+  reloadUser = () => {
     const { id } = this.props.match.params;
     this.props.dispatch(actions.userFetch(id));
   };
@@ -29,7 +30,7 @@ class User extends PureComponent {
     const { user } = this.props;
 
     return (
-      <Layout title={user.data.name || user.error} onReloadClick={this.fetchUser} gutterBottom>
+      <Layout title={user.data.name || user.error} onReloadClick={this.reloadUser} gutterBottom>
         <Fetcher isLoading={user.isFetching} error={user.error}>
           <UserOutput data={user.data} />
         </Fetcher>

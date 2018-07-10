@@ -17,10 +17,10 @@ class Home extends PureComponent {
   };
 
   componentDidMount() {
-    this.fetchPosts();
+    this.props.dispatch(actions.postsFetchIfNeeded());
   }
 
-  fetchPosts = () => {
+  reloadPosts = () => {
     this.props.dispatch(actions.postsFetch());
   };
 
@@ -28,7 +28,7 @@ class Home extends PureComponent {
     const { posts, dispatch } = this.props;
 
     return (
-      <Layout title="Home" gutterBottom={!posts.nextPage.hasMore} onReloadClick={this.fetchPosts}>
+      <Layout title="Home" gutterBottom={!posts.nextPage.hasMore} onReloadClick={this.reloadPosts}>
         <Fetcher isLoading={posts.isFetching} error={posts.error}>
           <PostsList posts={posts} dispatch={dispatch} />
         </Fetcher>

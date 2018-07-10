@@ -1,6 +1,7 @@
 // Imports
-import { bindRandomImageToPosts } from '../../utils';
+import { bindRandomImageToPosts, getCachedStore } from '../../utils';
 import Api from '../../utils/api';
+import _get from 'lodash.get';
 
 // Action types
 export const FETCH = '@posts/FETCH';
@@ -10,6 +11,9 @@ export const FETCH_NEXT = '@posts/FETCH_NEXT';
 export const FETCH_NEXT_OK = '@posts/FETCH_NEXT_OK';
 export const FETCH_NEXT_ERR = '@posts/FETCH_NEXT_ERR';
 export const BLOCK_LOAD_MORE = '@posts/BLOCK_LOAD_MORE';
+export const SET_NEXT_PAGE = '@posts/SET_NEXT_PAGE';
+
+const POSTS_PER_PAGE = 20;
 
 // Action creators
 const postsFetchStart = () => {
@@ -18,7 +22,7 @@ const postsFetchStart = () => {
 
 const postsFetchOk = data => ({
   type: FETCH_OK,
-  payload: data,
+  payload: bindRandomImageToPosts(data),
 });
 
 const postsFetchErr = err => ({
@@ -30,7 +34,6 @@ export const blockLoadMore = () => ({
   type: BLOCK_LOAD_MORE,
 });
 
-// TODO: add postsFetchIfNeeded
 export const postsFetch = () => dispatch => {
   dispatch(postsFetchStart());
 
@@ -38,10 +41,10 @@ export const postsFetch = () => dispatch => {
     url: '/posts',
     data: {
       _page: 1,
-      _limit: 20,
+      _limit: POSTS_PER_PAGE,
     },
     onResponse: res => {
-      dispatch(postsFetchOk(bindRandomImageToPosts(res)));
+      dispatch(postsFetchOk(res));
       if (res.length === 0) {
         dispatch(blockLoadMore());
       }
@@ -52,13 +55,35 @@ export const postsFetch = () => dispatch => {
   });
 };
 
+export const postsFetchIfNeeded = () => dispatch => {
+  const cachedStore = getCachedStore();
+  const cachedData = _get(cachedStore, 'state.posts.data', []);
+
+  if (cachedData.length > 0) {
+    dispatch(postsFetchOk(cachedData));
+    dispatch(calculateNextPage(cachedData));
+  } else {
+    dispatch(postsFetch());
+  }
+};
+
+export const calculateNextPage = postsData => {
+  const page = Math.floor(postsData.length / POSTS_PER_PAGE);
+  console.log('page: ', page);
+
+  return {
+    type: SET_NEXT_PAGE,
+    payload: page,
+  };
+};
+
 const postsFetchNextStart = () => {
   return { type: FETCH_NEXT };
 };
 
 const postsFetchNextOk = data => ({
   type: FETCH_NEXT_OK,
-  payload: data,
+  payload: bindRandomImageToPosts(data),
 });
 
 const postsFetchNextErr = err => ({
@@ -73,10 +98,10 @@ export const postsFetchNext = page => dispatch => {
     url: '/posts',
     data: {
       _page: page,
-      _limit: 20,
+      _limit: POSTS_PER_PAGE,
     },
     onResponse: res => {
-      dispatch(postsFetchNextOk(bindRandomImageToPosts(res)));
+      dispatch(postsFetchNextOk(res));
       if (res.length === 0) {
         dispatch(blockLoadMore());
       }
@@ -155,6 +180,14 @@ export default (state = initialState, action) => {
         nextPage: {
           ...state.nextPage,
           hasMore: false,
+        },
+      };
+    case SET_NEXT_PAGE:
+      return {
+        ...state,
+        nextPage: {
+          ...state.nextPage,
+          page: action.payload,
         },
       };
     default:

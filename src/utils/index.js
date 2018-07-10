@@ -42,3 +42,7 @@ export const bindRandomImageToPost = post => {
 export const bindRandomImageToPosts = posts => {
   return posts.map(post => bindRandomImageToPost(post));
 };
+
+export const getCachedStore = () => {
+  return JSON.parse(sessionStorage.getItem('cached_store'));
+};

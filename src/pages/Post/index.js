@@ -17,10 +17,11 @@ class Post extends PureComponent {
   };
 
   componentDidMount() {
-    this.fetchPost();
+    const { id } = this.props.match.params;
+    this.props.dispatch(actions.postFetchIfNeeded(id));
   }
 
-  fetchPost = () => {
+  reloadPost = () => {
     const { id } = this.props.match.params;
     this.props.dispatch(actions.postFetch(id));
   };
@@ -29,7 +30,7 @@ class Post extends PureComponent {
     const { post } = this.props;
 
     return (
-      <Layout title={post.data.title || post.error} onReloadClick={this.fetchPost} gutterBottom>
+      <Layout title={post.data.title || post.error} onReloadClick={this.reloadPost} gutterBottom>
         <Fetcher isLoading={post.isFetching} error={post.error}>
           <PostOutput data={post.data} />
         </Fetcher>
