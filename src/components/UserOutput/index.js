@@ -14,7 +14,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import GridWrapper from '../GridWrapper';
 // Icons
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
@@ -26,7 +25,7 @@ const UserOutput = ({ className, data }) => {
   const avatarLetter = _get(data, 'name[0]', '');
 
   return (
-    <GridWrapper className={cn(style.UserOutput, className)} spacing={24}>
+    <div className={cn(style.UserOutput, className)}>
       <Grid container spacing={24}>
         <Grid item xs={12} sm={3}>
           <Card className={style.UserOutput__card}>
@@ -78,7 +77,7 @@ const UserOutput = ({ className, data }) => {
           </Card>
         </Grid>
       </Grid>
-    </GridWrapper>
+    </div>
   );
 };
 

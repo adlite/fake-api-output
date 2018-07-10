@@ -58,7 +58,7 @@ export default class Header extends PureComponent {
     return (
       <React.Fragment>
         <AppBar className={cn(style.Header, className)} position="fixed">
-          <Container>
+          <Container noPaddings>
             <Toolbar disableGutters>
               <IconButton
                 className={style.Header__burger}
