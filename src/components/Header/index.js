@@ -78,7 +78,7 @@ export default class Header extends PureComponent {
               {hideReloadButton || (
                 <Button color="inherit" onClick={onReloadClick}>
                   <RefreshIcon className={style.Header__buttonIcon} />
-                  <span>Refetch</span>
+                  <span className={style.Header__buttonText}>Refetch</span>
                 </Button>
               )}
             </Toolbar>

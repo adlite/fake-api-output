@@ -7,8 +7,12 @@
     margin-right: 20
   }
 
-  &__title {
+  & &__title {
     flex: 1
+
+    @media $mediaXs {
+      font-size: 15px
+    }
   }
 
   &__nav {
@@ -17,10 +21,24 @@
 
   & &__buttonIcon {
     margin-right: 5px
+
+    @media $mediaXs {
+      width: 12px
+    }
+  }
+
+  & &__buttonText {
+    @media $mediaXs {
+      font-size: 12px
+    }
   }
 
   & &__cacheInfo {
     opacity: 0.6
     margin-right: 10px
+
+    @media $mediaSm {
+      display: none
+    }
   }
 }

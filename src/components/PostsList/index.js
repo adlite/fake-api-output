@@ -8,6 +8,7 @@ import * as actions from '../../store/modules/posts';
 // Components
 import Post from '../Post';
 import Fetcher from '../Fetcher';
+import GridWrapper from '../GridWrapper';
 
 export default class PostsList extends PureComponent {
   static propTypes = {
@@ -49,13 +50,15 @@ export default class PostsList extends PureComponent {
 
   renderPosts() {
     return (
-      <Grid container spacing={24}>
-        {this.props.posts.data.map(post => (
-          <Grid item xs={12} sm={6} key={post.id}>
-            <Post data={post} />
-          </Grid>
-        ))}
-      </Grid>
+      <GridWrapper spacing={24}>
+        <Grid container spacing={24}>
+          {this.props.posts.data.map(post => (
+            <Grid item xs={12} sm={6} key={post.id}>
+              <Post data={post} />
+            </Grid>
+          ))}
+        </Grid>
+      </GridWrapper>
     );
   }
 
