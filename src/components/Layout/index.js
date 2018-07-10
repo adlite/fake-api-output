@@ -17,7 +17,7 @@ import Container from '../Container';
 // Styles
 import style from './style.styl';
 
-const Layout = ({ children, title, gutterBottom }) => {
+const Layout = ({ children, title, gutterBottom, hideReloadButton, onReloadClick }) => {
   const classes = cn({
     [style.Layout]: true,
     [style.Layout_gutterBottom]: gutterBottom,
@@ -35,9 +35,11 @@ const Layout = ({ children, title, gutterBottom }) => {
             <Typography variant="title" color="inherit" className={style.Layout__title}>
               <Link to="/">Fake API Output App</Link>
             </Typography>
-            <IconButton color="inherit">
-              <RefreshIcon />
-            </IconButton>
+            {hideReloadButton || (
+              <IconButton color="inherit" onClick={onReloadClick}>
+                <RefreshIcon />
+              </IconButton>
+            )}
             <IconButton color="inherit">
               <SearchIcon />
             </IconButton>
@@ -53,12 +55,16 @@ const Layout = ({ children, title, gutterBottom }) => {
 
 Layout.defaultProps = {
   gutterBottom: false,
+  hideReloadButton: false,
+  onReloadClick: () => null,
 };
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   gutterBottom: PropTypes.bool,
+  onReloadClick: PropTypes.func,
+  hideReloadButton: PropTypes.bool,
 };
 
 export default Layout;
