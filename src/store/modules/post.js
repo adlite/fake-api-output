@@ -42,7 +42,6 @@ export const postFetch = id => dispatch => {
   });
 };
 
-// TODO: check 404 errors with caching
 export const postFetchIfNeeded = id => dispatch => {
   const cachedStore = getCachedStore();
   const isDataCached = Number(_get(cachedStore, 'state.post.data.id', null)) === Number(id);
@@ -68,6 +67,7 @@ export default function postReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
+        error: null,
       };
     case FETCH_OK:
       return {

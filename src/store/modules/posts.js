@@ -73,7 +73,6 @@ export const postsFetchIfNeeded = () => dispatch => {
 
 export const calculateNextPage = postsData => {
   const page = Math.floor(postsData.length / POSTS_PER_PAGE);
-  console.log('page: ', page);
 
   return {
     type: SET_NEXT_PAGE,

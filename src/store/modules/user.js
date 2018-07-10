@@ -64,6 +64,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
+        error: null,
       };
     case FETCH_OK:
       return {
