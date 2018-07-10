@@ -42,7 +42,7 @@ NavItem.propTypes = {
   className: PropTypes.string,
   to: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  icon: PropTypes.object.isRequired,
+  icon: PropTypes.func.isRequired,
 };
 
 export default NavItem;

@@ -30,7 +30,10 @@ class User extends PureComponent {
     const { user } = this.props;
 
     return (
-      <Layout title={user.data.name || user.error} onReloadClick={this.reloadUser} gutterBottom>
+      <Layout
+        title={user.data.name || user.error || 'User page'}
+        onReloadClick={this.reloadUser}
+        gutterBottom>
         <Fetcher isLoading={user.isFetching} error={user.error}>
           <UserOutput data={user.data} />
         </Fetcher>

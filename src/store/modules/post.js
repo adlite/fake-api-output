@@ -57,7 +57,7 @@ export const postFetchIfNeeded = id => dispatch => {
 
 // Reducer
 const initialState = {
-  data: [],
+  data: {},
   isFetching: false,
   error: null,
 };
