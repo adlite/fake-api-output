@@ -70,11 +70,12 @@ export default class Header extends PureComponent {
               <Typography variant="title" color="inherit" className={style.Header__title}>
                 <Link to="/">Fake API Output App</Link>
               </Typography>
-              {isDataFromCache && (
-                <Typography color="inherit" className={style.Header__cacheInfo}>
-                  This content loaded from cache
-                </Typography>
-              )}
+              {isDataFromCache &&
+                !hideReloadButton && (
+                  <Typography color="inherit" className={style.Header__cacheInfo}>
+                    This content loaded from cache
+                  </Typography>
+                )}
               {hideReloadButton || (
                 <Button color="inherit" onClick={onReloadClick}>
                   <RefreshIcon className={style.Header__buttonIcon} />

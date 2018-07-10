@@ -65,7 +65,7 @@ const UserOutput = ({ className, data }) => {
                 </ListItem>
               </a>
               <Divider inset component="li" />
-              <a href={`//${data.website}`} target="_blank">
+              <a href={`//${data.website}`} target="_blank" rel="noopener noreferrer">
                 <ListItem>
                   <Avatar>
                     <LinkIcon />
