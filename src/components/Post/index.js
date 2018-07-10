@@ -27,7 +27,7 @@ const Post = ({ className, data }) => (
         <Typography gutterBottom variant="headline" component="h2" className={style.Post__title}>
           {data.title}
         </Typography>
-        <Typography noWrap component="p">
+        <Typography className={style.Post__body} noWrap component="p">
           {data.body}
         </Typography>
       </CardContent>
