@@ -72,7 +72,7 @@ export default class Header extends PureComponent {
               </Typography>
               {isDataFromCache && (
                 <Typography color="inherit" className={style.Header__cacheInfo}>
-                  This data loaded from cache
+                  This content loaded from cache
                 </Typography>
               )}
               {hideReloadButton || (

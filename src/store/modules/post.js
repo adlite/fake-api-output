@@ -2,6 +2,7 @@
 import _get from 'lodash.get';
 import Api from '../../utils/api';
 import { bindRandomImageToPost, getCachedStore } from '../../utils';
+import { setCacheMark } from './ui';
 
 // Action names
 export const FETCH = '@post/FETCH';
@@ -25,6 +26,7 @@ const postFetchErr = err => ({
 
 export const postFetch = id => dispatch => {
   dispatch(postFetchStart());
+  dispatch(setCacheMark(false));
 
   return Api.get({
     url: `/posts/${id}`,
@@ -40,13 +42,17 @@ export const postFetch = id => dispatch => {
   });
 };
 
+// TODO: check 404 errors with caching
 export const postFetchIfNeeded = id => dispatch => {
   const cachedStore = getCachedStore();
-  if (Number(_get(cachedStore, 'state.post.data.id', null)) === Number(id)) {
+  const isDataCached = Number(_get(cachedStore, 'state.post.data.id', null)) === Number(id);
+
+  if (isDataCached) {
     dispatch(postFetchOk(cachedStore.state.post.data));
   } else {
     dispatch(postFetch(id));
   }
+  dispatch(setCacheMark(isDataCached));
 };
 
 // Reducer

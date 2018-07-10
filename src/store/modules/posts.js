@@ -2,6 +2,7 @@
 import { bindRandomImageToPosts, getCachedStore } from '../../utils';
 import Api from '../../utils/api';
 import _get from 'lodash.get';
+import { setCacheMark } from './ui';
 
 // Action types
 export const FETCH = '@posts/FETCH';
@@ -36,6 +37,7 @@ export const blockLoadMore = () => ({
 
 export const postsFetch = () => dispatch => {
   dispatch(postsFetchStart());
+  dispatch(setCacheMark(false));
 
   return Api.get({
     url: '/posts',
@@ -58,13 +60,15 @@ export const postsFetch = () => dispatch => {
 export const postsFetchIfNeeded = () => dispatch => {
   const cachedStore = getCachedStore();
   const cachedData = _get(cachedStore, 'state.posts.data', []);
+  const isDataCached = cachedData.length > 0;
 
-  if (cachedData.length > 0) {
+  if (isDataCached) {
     dispatch(postsFetchOk(cachedData));
     dispatch(calculateNextPage(cachedData));
   } else {
     dispatch(postsFetch());
   }
+  dispatch(setCacheMark(isDataCached));
 };
 
 export const calculateNextPage = postsData => {
@@ -93,6 +97,7 @@ const postsFetchNextErr = err => ({
 
 export const postsFetchNext = page => dispatch => {
   dispatch(postsFetchNextStart());
+  dispatch(setCacheMark(false));
 
   return Api.get({
     url: '/posts',

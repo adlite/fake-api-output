@@ -2,6 +2,7 @@
 import Api from '../../utils/api';
 import { getCachedStore } from '../../utils';
 import _get from 'lodash.get';
+import { setCacheMark } from './ui';
 
 // Action names
 export const FETCH = '@user/FETCH';
@@ -25,6 +26,7 @@ const userFetchErr = err => ({
 
 export const userFetch = id => dispatch => {
   dispatch(userFetchStart());
+  dispatch(setCacheMark(false));
 
   return Api.get({
     url: `/users/${id}`,
@@ -39,11 +41,14 @@ export const userFetch = id => dispatch => {
 
 export const userFetchIfNeeded = id => dispatch => {
   const cachedStore = getCachedStore();
-  if (Number(_get(cachedStore, 'state.user.data.id', null)) === Number(id)) {
+  const isDataCached = Number(_get(cachedStore, 'state.user.data.id', null)) === Number(id);
+
+  if (isDataCached) {
     dispatch(userFetchOk(cachedStore.state.user.data));
   } else {
     dispatch(userFetch(id));
   }
+  dispatch(setCacheMark(isDataCached));
 };
 
 // Reducer
