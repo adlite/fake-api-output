@@ -17,15 +17,19 @@ class User extends PureComponent {
   };
 
   componentDidMount() {
+    this.fetchUser();
+  }
+
+  fetchUser = () => {
     const { id } = this.props.match.params;
     this.props.dispatch(actions.userFetch(id));
-  }
+  };
 
   render() {
     const { user } = this.props;
 
     return (
-      <Layout title={user.data.name || user.error} gutterBottom>
+      <Layout title={user.data.name || user.error} onReloadClick={this.fetchUser} gutterBottom>
         <Fetcher isLoading={user.isFetching} error={user.error}>
           <UserOutput data={user.data} />
         </Fetcher>

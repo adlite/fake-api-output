@@ -17,15 +17,19 @@ class Post extends PureComponent {
   };
 
   componentDidMount() {
+    this.fetchPost();
+  }
+
+  fetchPost = () => {
     const { id } = this.props.match.params;
     this.props.dispatch(actions.postFetch(id));
-  }
+  };
 
   render() {
     const { post } = this.props;
 
     return (
-      <Layout title={post.data.title || post.error} gutterBottom>
+      <Layout title={post.data.title || post.error} onReloadClick={this.fetchPost} gutterBottom>
         <Fetcher isLoading={post.isFetching} error={post.error}>
           <PostOutput data={post.data} />
         </Fetcher>

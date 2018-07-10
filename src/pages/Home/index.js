@@ -17,14 +17,18 @@ class Home extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.dispatch(actions.postsFetch());
+    this.fetchPosts();
   }
+
+  fetchPosts = () => {
+    this.props.dispatch(actions.postsFetch());
+  };
 
   render() {
     const { posts, dispatch } = this.props;
 
     return (
-      <Layout title="Home" gutterBottom={!posts.nextPage.hasMore}>
+      <Layout title="Home" gutterBottom={!posts.nextPage.hasMore} onReloadClick={this.fetchPosts}>
         <Fetcher isLoading={posts.isFetching} error={posts.error}>
           <PostsList posts={posts} dispatch={dispatch} />
         </Fetcher>
