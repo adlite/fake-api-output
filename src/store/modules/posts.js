@@ -1,4 +1,5 @@
 // Imports
+import { bindRandomImageToPosts } from '../../utils';
 import Api from '../../utils/api';
 
 // Action types
@@ -37,9 +38,10 @@ export const postsFetch = () => dispatch => {
     url: '/posts',
     data: {
       _page: 1,
+      _limit: 20,
     },
     onResponse: res => {
-      dispatch(postsFetchOk(res));
+      dispatch(postsFetchOk(bindRandomImageToPosts(res)));
       if (res.length === 0) {
         dispatch(blockLoadMore());
       }
@@ -71,9 +73,10 @@ export const postsFetchNext = page => dispatch => {
     url: '/posts',
     data: {
       _page: page,
+      _limit: 20,
     },
     onResponse: res => {
-      dispatch(postsFetchNextOk(res));
+      dispatch(postsFetchNextOk(bindRandomImageToPosts(res)));
       if (res.length === 0) {
         dispatch(blockLoadMore());
       }

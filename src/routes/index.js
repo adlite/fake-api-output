@@ -1,5 +1,6 @@
 import Home from '../pages/Home';
 import Post from '../pages/Post';
+import User from '../pages/User';
 
 export default [
   {
@@ -10,6 +11,11 @@ export default [
   {
     path: '/post/:id',
     component: Post,
+    exact: true,
+  },
+  {
+    path: '/user/:id',
+    component: User,
     exact: true,
   },
 ];
