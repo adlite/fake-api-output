@@ -1,6 +1,12 @@
 .UserOutput {
   & &__card {
     height: 100%
+
+    &_avatar {
+      display: flex
+      justify-content: center
+      align-items: center
+    }
   }
 
   & &__avatar {
@@ -9,5 +15,10 @@
     height: 200px
     font-size: 72px
     background-color: #ff5722
+
+    @media $mediaLg {
+      width: 150px
+      height: 150px
+    }
   }
 }

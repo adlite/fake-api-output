@@ -34,7 +34,7 @@ export const bindRandomImageToPost = post => {
   const imageId = random(0, 20);
   return {
     ...post,
-    preview: getRandomPicsumImage(imageId, 1920, 1080),
+    preview: getRandomPicsumImage(imageId, 1200, 800),
     thumb: getRandomPicsumImage(imageId, 640, 480),
   };
 };

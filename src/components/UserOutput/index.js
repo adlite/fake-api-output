@@ -27,14 +27,14 @@ const UserOutput = ({ className, data }) => {
   return (
     <div className={cn(style.UserOutput, className)}>
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={3}>
-          <Card className={style.UserOutput__card}>
+        <Grid item xs={12} sm={12} lg={3}>
+          <Card className={cn(style.UserOutput__card, style.UserOutput__card_avatar)}>
             <CardContent>
               <Avatar className={style.UserOutput__avatar}>{avatarLetter}</Avatar>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={5}>
+        <Grid item xs={12} sm={12} lg={5}>
           <Card className={style.UserOutput__card}>
             <CardContent>
               <Typography variant="display2" component="h1" gutterBottom>
@@ -44,7 +44,7 @@ const UserOutput = ({ className, data }) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={12} lg={4}>
           <Card className={style.UserOutput__card}>
             <List>
               <a href={`tel:${data.email}`}>
