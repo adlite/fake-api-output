@@ -5,7 +5,7 @@ import cn from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 // Components
-// import Component from '../Component';
+import Button from '../Button';
 // Styles
 import style from './style.styl';
 
@@ -20,7 +20,14 @@ const Fetcher = ({ className, children, isLoading, innerRef, error }) => {
   return (
     <div className={classes} ref={innerRef}>
       {error ? (
-        <Typography>{error}</Typography>
+        <React.Fragment>
+          <Typography>{error}</Typography>
+          <div className={style.Fetcher__actions}>
+            <Button to="/" variant="contained" color="primary">
+              Go to homepage
+            </Button>
+          </div>
+        </React.Fragment>
       ) : isLoading ? (
         <CircularProgress className={style.Fetcher__spinner} size={45} />
       ) : (
