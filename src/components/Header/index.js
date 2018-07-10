@@ -18,6 +18,7 @@ import InfoIcon from '@material-ui/icons/Info';
 // Components
 import Container from '../Container';
 import NavItem from '../NavItem';
+import Button from '../Button';
 // Styles
 import style from './style.styl';
 
@@ -65,14 +66,15 @@ export default class Header extends PureComponent {
               <Typography variant="title" color="inherit" className={style.Header__title}>
                 <Link to="/">Fake API Output App</Link>
               </Typography>
+              <Typography color="inherit" className={style.Header__cacheInfo}>
+                Fake API Output App
+              </Typography>
               {hideReloadButton || (
-                <IconButton color="inherit" onClick={onReloadClick}>
-                  <RefreshIcon />
-                </IconButton>
+                <Button color="inherit" onClick={onReloadClick}>
+                  <RefreshIcon className={style.Header__buttonIcon} />
+                  <span>Refetch</span>
+                </Button>
               )}
-              <IconButton color="inherit">
-                <SearchIcon />
-              </IconButton>
             </Toolbar>
           </Container>
         </AppBar>
@@ -80,7 +82,6 @@ export default class Header extends PureComponent {
           <div tabIndex={0} role="button" onClick={this.toggleNav}>
             <List component="nav" className={style.Header__nav}>
               <NavItem to="/" text="Home" icon={HomeIcon} />
-              <NavItem to="/search" text="Search" icon={SearchIcon} />
               <NavItem to="/about" text="About" icon={InfoIcon} />
             </List>
           </div>

@@ -9,7 +9,6 @@ import Button from '../Button';
 // Styles
 import style from './style.styl';
 
-// TODO: add error handling
 const Fetcher = ({ className, children, isLoading, innerRef, error }) => {
   const classes = cn({
     [style.Fetcher]: true,
