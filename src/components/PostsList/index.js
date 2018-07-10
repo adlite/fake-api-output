@@ -22,8 +22,6 @@ export default class PostsList extends PureComponent {
   }
 
   componentWillUnmount() {
-    // TODO: remove console.log()
-    console.log('PostsList will unmount');
     window.removeEventListener('scroll', this.handleScroll);
   }
 
