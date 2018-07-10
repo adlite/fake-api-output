@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 // Icons
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
@@ -22,6 +22,9 @@ import Button from '../Button';
 // Styles
 import style from './style.styl';
 
+@connect(({ ui }) => ({
+  isDataFromCache: ui.isDataFromCache,
+}))
 export default class Header extends PureComponent {
   static defaultProps = {
     className: '',
@@ -33,6 +36,7 @@ export default class Header extends PureComponent {
     className: PropTypes.string,
     onReloadClick: PropTypes.func,
     hideReloadButton: PropTypes.bool,
+    isDataFromCache: PropTypes.bool,
   };
 
   constructor(props) {
@@ -49,7 +53,7 @@ export default class Header extends PureComponent {
   };
 
   render() {
-    const { className, hideReloadButton, onReloadClick } = this.props;
+    const { className, hideReloadButton, onReloadClick, isDataFromCache } = this.props;
 
     return (
       <React.Fragment>
@@ -66,9 +70,11 @@ export default class Header extends PureComponent {
               <Typography variant="title" color="inherit" className={style.Header__title}>
                 <Link to="/">Fake API Output App</Link>
               </Typography>
-              <Typography color="inherit" className={style.Header__cacheInfo}>
-                Fake API Output App
-              </Typography>
+              {isDataFromCache && (
+                <Typography color="inherit" className={style.Header__cacheInfo}>
+                  This data loaded from cache
+                </Typography>
+              )}
               {hideReloadButton || (
                 <Button color="inherit" onClick={onReloadClick}>
                   <RefreshIcon className={style.Header__buttonIcon} />
