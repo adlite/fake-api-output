@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -20,6 +17,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 // Components
 import Container from '../Container';
+import NavItem from '../NavItem';
 // Styles
 import style from './style.styl';
 
@@ -81,24 +79,9 @@ export default class Header extends PureComponent {
         <Drawer open={this.state.navIsOpened} onClose={this.toggleNav}>
           <div tabIndex={0} role="button" onClick={this.toggleNav}>
             <List component="nav" className={style.Header__nav}>
-              <ListItem button>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <SearchIcon />
-                </ListItemIcon>
-                <ListItemText primary="Search" />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <InfoIcon />
-                </ListItemIcon>
-                <ListItemText primary="About" />
-              </ListItem>
+              <NavItem to="/" text="Home" icon={HomeIcon} />
+              <NavItem to="/search" text="Search" icon={SearchIcon} />
+              <NavItem to="/about" text="About" icon={InfoIcon} />
             </List>
           </div>
         </Drawer>
